@@ -1,0 +1,34 @@
+В прошлом примере мы сделали export default для нашей задачи, но нам не обязательно
+делать так для каждой задачи (мы и не сможем), если мы хотим создать именованную
+задачу, можем сделать следующим образом:
+
+См. ./../lesson-files/gulpfile [tasks-export].js
+
+В этом примере добавилось несколько новых вещей:
+
+// const { parallel } = require('gulp');
+
+Здесь происходит подключение функции parallel() из пакета Gulp.
+Эта функция позволяет объединять несколько функций в одну задачу.
+Именно функция parallel() используется при экспорте задач в этом примере.
+
+
+exports.default = parallel(sassCompile, pugCompile, imagesOptimize);
+exports.layoutCompile = parallel(sassCompile, pugCompile);
+exports.assetsOptimize = imagesOptimize;
+
+В этом примере экспортируются три задачи:
+
+1. default — задача по умолчанию, которая выполняет три функции:
+sassCompile(), pugCompile() и imagesOptimize(). Для запуска задачи
+достаточно просто запустить
+> gulp
+
+2. layoutCompile — задача, вызывающая только функции, связанные с компиляцией
+файлов вёрстки. Для запуска задачи используется команда
+> gulp layoutCompile
+
+3. assetsOptimize — задача, вызывающая функцию imagesOptimize().
+Для запуска задачи используется команда
+> gulp assetsOptimize
+
